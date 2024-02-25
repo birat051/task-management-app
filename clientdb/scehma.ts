@@ -22,7 +22,6 @@ export default appSchema({
               { name: 'user_id', type: 'string', isIndexed: true },
               { name: 'name', type: 'string' },
               { name: 'email_address', type: 'string' },
-              { name: 'session_token', type: 'string', isOptional: true }
             ]
           })
     ]

@@ -9,7 +9,9 @@ import React, { useState } from 'react'
 import LoadingOverlayWrapper from 'react-loading-overlay-ts'
 import styles from '../signup/page.module.css'
 import formstyle from '../../components/AddTask/addtask.module.css'
-
+import { database } from '@/clientdb/db'
+import ClientUser from '@/clientdb/DAO/UserDao'
+import UserDetails from '@/services/UserDetails'
 
 function Signin() {
   const [email,password,onChangeEmail,onChangePassword,validateEmail,validatePassword]=SigninState()
@@ -26,16 +28,24 @@ function Signin() {
       password: password,redirect:false
     })
     setloading(false)
-    console.log(res)
+    console.log('Signin response is: ',res)
     if(res?.ok!=true)
     {
       alert('Wrong email and password combination')
     }
     else
     {
+      const {emailId,userId,name,message}=await UserDetails.getUserDetailsByEmail(email)
+      if(!message)
+      {
+        console.log('Creating user in local DB')
+        // console.log('User id is: ',userId)
+        await ClientUser.createUser({name,emailId,userId})
+      }
       router.push('/')
     }
   }
+
   return (
     <LoadingOverlayWrapper active={loading}>
     <main className={styles.signup}>

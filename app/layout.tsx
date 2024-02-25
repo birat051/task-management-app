@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 // const inter = Inter({ subsets: ["latin"] });
+import { SessionProvider } from "next-auth/react"
+import { NextAuthProvider } from "@/components/NextAuthProvider";
 
 export const inter = Inter({
   variable: '--font-inter',
@@ -26,10 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <NextAuthProvider>
     <html lang="en">
       <body className={`${roboto.variable} ${inter.variable}`}>
         {children}
       </body>
     </html>
+    </NextAuthProvider>
   );
 }

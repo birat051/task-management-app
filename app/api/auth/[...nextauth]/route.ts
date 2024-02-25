@@ -5,6 +5,14 @@ import bcrypt from 'bcrypt';
 import NextAuth from "next-auth/next";
 
 const authOptions: NextAuthOptions = {
+  callbacks: {
+    session: ({ session }) => ({
+      ...session,
+      user: {
+        ...session.user,
+      },
+    }),
+  },
   providers: [
     CredentialsProvider({
       name: 'Task Management',

@@ -2,6 +2,18 @@ import {Model} from '@nozbe/watermelondb'
 import { Associations } from '@nozbe/watermelondb/Model'
 import {field,date,readonly,children,action} from '@nozbe/watermelondb/decorators'
 
+
+export interface TaskType
+{
+    title: string;
+    description: string;
+    dueDate: Date;
+    updatedAt: Date;
+    priority: string;
+    status: string;
+    createdAt: Date;
+}
+
 export default class Task extends Model
 {
     static table='tasks'

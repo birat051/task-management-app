@@ -6,17 +6,15 @@ export interface UserData extends User {
    name: string,
    emailId: string,
    userId: string,
-   refreshToken: string
 }
 
 const users=database.collections.get<UserData>('users')
 
 export default {
     observeUsers: ()=> users.query().observe(),
-    createTask: async ({name,emailId,userId,refreshToken}:{name:string,userId:string,emailId:string,refreshToken:string})=>{
-        await database.action(async ()=>{
+    createUser: async ({name,emailId,userId}:{name:string,userId:string,emailId:string})=>{
+        await database.write(async ()=>{
             await users.create((user)=>{
-                user.refreshToken=refreshToken
                 user.emailId=emailId
                 user.name=name
                 user.userId=userId

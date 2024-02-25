@@ -1,6 +1,14 @@
 import { Model } from "@nozbe/watermelondb";
 import { Associations } from '@nozbe/watermelondb/Model'
-import {field,date,readonly,children,action} from '@nozbe/watermelondb/decorators'
+import {field,date,readonly,children,action, writer} from '@nozbe/watermelondb/decorators'
+
+
+export interface UserType
+{
+    userId:string,
+    name:string,
+    emailId: string
+}
 
 export default class User extends Model
 {
@@ -11,27 +19,19 @@ export default class User extends Model
     @field('user_id') userId!:string;
     @field('name') name!:string;
     @field('email_address') emailId!:string;
-    @field('session_token') sessionToken!:string;
     @children('tasks') tasks!:any;
 
-    @action async getUser()
+    async getUser()
     {
         return {
             userId: this.userId,
             name: this.name,
             emailId: this.emailId,
-            refreshToken: this.sessionToken
         }
     }
 
-    @action async updateRefreshToken({refreshToken}:{refreshToken:string})
-    {
-        return await this.update((user)=>{
-            user.sessionToken= refreshToken
-        })
-    }
 
-    @action async deleteAllTasks()
+    async deleteAllTasks()
     {
         return this.tasks.destroyAllPermanently()
     }
