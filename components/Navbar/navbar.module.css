@@ -1,0 +1,42 @@
+.navbar
+{
+    width: 100%;
+    background-color: black;
+    padding: 0.5rem 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar nav ul li{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.navbar nav ul button{
+    border: none;
+    padding: 0rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    color: white;
+    font-family: var(--font-roboto-mono);
+    font-weight: 500;
+    background-color: black;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.navbar nav ul li a{
+    color: white;
+}
+
+.navbar nav ul li a:hover{
+    color: coral;
+}

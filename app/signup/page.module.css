@@ -1,0 +1,27 @@
+.signup
+{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.signup p{
+    margin-top: 1rem;
+    font-family: var(--font-roboto-mono);
+    font-size: 0.8rem;
+    color: black;
+    font-weight: 400;
+}
+
+.signup p a{
+    font-family: var(--font-roboto-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: coral;
+}
