@@ -1,0 +1,69 @@
+.taskformcontainer
+{
+    border-radius: 8px;
+    border: 1px solid grey;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 2rem;
+
+}
+.taskform
+{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    color: black;
+}
+
+.taskform label
+{
+    margin-bottom: 0.5rem;
+}
+
+.taskform input
+{
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 0.5px solid black;
+}
+
+.taskform input:focus
+{
+    border: 0.5px solid coral;
+}
+
+.taskform select
+{
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 0.5px solid black;
+}
+
+.taskform select:focus
+{
+    border: 0.5px solid coral;
+}
+
+.taskform textarea
+{
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 0.5px solid black;
+}
+
+.taskform textarea:focus
+{
+    border: 0.5px solid coral;
+}

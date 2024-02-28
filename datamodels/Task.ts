@@ -1,17 +1,19 @@
 import {Model} from '@nozbe/watermelondb'
 import { Associations } from '@nozbe/watermelondb/Model'
-import {field,date,readonly,children,action} from '@nozbe/watermelondb/decorators'
+import {field,date,readonly,writer, relation} from '@nozbe/watermelondb/decorators'
+import User from './User';
 
 
 export interface TaskType
 {
     title: string;
     description: string;
-    dueDate: Date;
     updatedAt: Date;
     priority: string;
     status: string;
     createdAt: Date;
+    user:User;
+    userId: string;
 }
 
 export default class Task extends Model
@@ -27,10 +29,10 @@ export default class Task extends Model
     @field('priority') priority!:string;
     @readonly @date('created_at') createdAt!:Date;
     @readonly @date('updated_at') updatedAt!:Date;
-    @date('due_date') dueDate!: Date;
     @field('user_id') userId!: string;
+    @relation('users','user_id') user!:User;
 
-    @action async getTask()
+    async getTask()
     {
         return {
             title: this.title,
@@ -39,26 +41,43 @@ export default class Task extends Model
             priority: this.priority,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
-            dueDate: this.dueDate,
             userId: this.userId
         }
     }
 
-    @action async updateTask({title, description, dueDate,updatedAt,priority,status}: {title: string, description: string, dueDate: Date,updatedAt:Date,priority:string,status:string})
-    {
-        return await this.update((task)=>{
-            task.title=title,
-            task.description=description,
-            task.dueDate=dueDate,
-            task.updatedAt=updatedAt,
-            task.priority=priority,
-            task.status=status
-        })
-    }
+    // @writer async updateTask({title, description,updatedAt,priority,status}: {title: string, description: string, updatedAt:Date,priority:string,status:string})
+    // {
+    //     console.log('Updating task inside model')
+    //     return await this.update((task)=>{
+    //         task.title=title,
+    //         task.description=description,
+    //         task.updatedAt=updatedAt,
+    //         task.priority=priority,
+    //         task.status=status
+    //     })
+    // }
 
-    @action async deleteTask()
+    @writer async updateTask({title, description, updatedAt, priority, status}: {title: string, description: string, updatedAt: Date, priority: string, status: string})
+{
+    console.log('Updating task inside model')
+    try {
+        const result = await this.update((task) => {
+            task.title = title;
+            task.description = description;
+            // task.updatedAt = updatedAt;
+            task.priority = priority;
+            task.status = status;
+        });
+        console.log('Task updated successfully:', result);
+        return result;
+    } catch (error) {
+        console.error('Error updating task:', error);
+        throw error; // rethrowing the error to be caught by the calling function
+    }
+}
+
+    @writer async deleteTask()
     {
         return await Promise.all([this.markAsDeleted(),this.destroyPermanently()])
     }
-
 }

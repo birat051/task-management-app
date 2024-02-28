@@ -10,13 +10,4 @@ const pool = new Pool({
     max: 3
 });
 
-// client.connect()
-//   .then(() => {
-//     console.log('Connected to PostgreSQL database');
-//     // Execute SQL queries here
-//   })
-//   .catch((err) => {
-//     console.error('Error connecting to PostgreSQL database', err);
-// });
-
 export {pool}

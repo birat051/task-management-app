@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LoadingOverlayWrapper from 'react-loading-overlay-ts'
 import styles from '../signup/page.module.css'
 import formstyle from '../../components/AddTask/addtask.module.css'
@@ -40,11 +40,16 @@ function Signin() {
       {
         console.log('Creating user in local DB')
         // console.log('User id is: ',userId)
-        await ClientUser.createUser({name,emailId,userId})
+        await ClientUser.createUser({name,emailId})
+        localStorage.setItem('active_user',email)
       }
       router.push('/')
     }
   }
+
+  useEffect(()=>{
+      document.title='Signin'
+  },[])
 
   return (
     <LoadingOverlayWrapper active={loading}>

@@ -3,7 +3,7 @@
 import SigninState from '@/hooks/SigninState'
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import formstyle from '../../components/AddTask/addtask.module.css'
@@ -63,6 +63,11 @@ function Signup() {
         setloading(false)
     })
   }
+  useEffect(()=>{
+    useEffect(()=>{
+      document.title='Signup'
+    },[])
+  },[])
   return (
     <LoadingOverlayWrapper active={loading}>
     <main className={styles.signup}>

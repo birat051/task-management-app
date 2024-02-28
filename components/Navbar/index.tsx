@@ -5,6 +5,7 @@ import { signOut } from 'next-auth/react'
 
 function Navbar() {
     const handleSignOut = async () => {
+        localStorage.clear()
         await signOut({ callbackUrl: '/signin' }) // Redirect to signin page after signout
     }
     return (

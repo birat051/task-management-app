@@ -1,71 +1,62 @@
-import React, { useState } from 'react';
 import styles from './addtask.module.css'
+import { TaskData } from '@/app/page';
+import TaskState from '@/hooks/TaskState';
 
 interface TaskFormProps {
-  onSubmit: (taskData: any) => void;
-  userId: string
+  onSubmit: (taskData: TaskData) => void;
+  // userId: string
 }
 
-const Priority: { [key: string]: string }={
+export const Priority: { [key: string]: string }={
   High: 'High',
   Normal: 'Normal',
   Low: 'Low'
 }
 
-const Status={
+export const Status: { [key: string]: string }={
   Pending: 'Pending',
   InProgress: 'InProgress',
   Completed: 'Completed'
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ onSubmit,userId }) => {
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [priority, setPriority] = useState<string>(Priority.Normal);
-  const [dueDate, setDueDate] = useState<string>();
-
+const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
+  // const [title, setTitle] = useState<string>('');
+  // const [description, setDescription] = useState<string>('');
+  // const [priority, setPriority] = useState<string>(Priority.Normal);
+  const [title,description,priority,changeTitle,changeDescription,changePriority]=TaskState('','',Priority.Normal)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const taskData = {
+    const taskData:TaskData = {
       title,
       description,
       priority,
-      dueDate,
-      userId,
       status: 'pending',
-      remoteStatus: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
     onSubmit(taskData);
     // Reset form fields
-    setTitle('');
-    setDescription('');
-    setPriority('Normal');
-    setDueDate('');
+    changeTitle('');
+    changeDescription('');
+    changePriority('Normal');
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.addtaskform}>
       <h2>Add Task</h2>
       <label>Title</label>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+      <input type="text" value={title} onChange={(e) => changeTitle(e.target.value)} required />
       
       <label>Description</label>
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+      <textarea value={description} onChange={(e) => changeDescription(e.target.value)} />
       
       <label>Priority</label>
-      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+      <select value={priority} onChange={(e) => changePriority(e.target.value)}>
         {Object.keys(Priority).map((value:string)=>{
           return (
             <option key={Priority[value]} value={Priority[value]}>{Priority[value]}</option>
           )
         })}
       </select>
-      <label>Due Date</label>
-      <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required/>
-      
-      <button type="submit" className='primary-button'>Submit</button>
+      <button type="submit" className='primary'>Submit</button>
     </form>
   );
 };

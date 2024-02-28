@@ -1,3 +1,4 @@
+'use client'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Roboto } from "next/font/google";
@@ -5,6 +6,8 @@ import "./globals.css";
 // const inter = Inter({ subsets: ["latin"] });
 import { SessionProvider } from "next-auth/react"
 import { NextAuthProvider } from "@/components/NextAuthProvider";
+import { DatabaseProvider } from '@nozbe/watermelondb/react'
+import { database } from "@/clientdb/db";
 
 export const inter = Inter({
   variable: '--font-inter',
@@ -17,10 +20,10 @@ export const roboto=Roboto({
   subsets: ["latin"]
 })
 
-export const metadata: Metadata = {
-  title: "Task Management",
-  description: "Task management app",
-};
+// export const metadata: Metadata = {
+//   title: "Task Management",
+//   description: "Task management app",
+// };
 
 export default function RootLayout({
   children,
@@ -28,6 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <DatabaseProvider database={database}>
     <NextAuthProvider>
     <html lang="en">
       <body className={`${roboto.variable} ${inter.variable}`}>
@@ -35,5 +39,6 @@ export default function RootLayout({
       </body>
     </html>
     </NextAuthProvider>
+    </DatabaseProvider>
   );
 }

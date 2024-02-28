@@ -38,15 +38,28 @@ h2
   font-family: var(--font-roboto-mono);
 }
 
-.primary-button{
+button
+{
   font-family: var(--font-roboto-mono);
   text-align: center;
   padding: 0.75rem;
-  background-color: coral;
   color: white;
   font-weight: 400;
   font-size: 0.8rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.primary{
+  background-color: coral;
+}
+
+.accent{
+  background-color: red;
+}
+
+button:disabled
+{
+  background-color: grey;
 }
